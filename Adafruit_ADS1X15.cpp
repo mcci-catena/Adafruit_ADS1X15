@@ -63,8 +63,20 @@ Adafruit_ADS1115::Adafruit_ADS1115() {
 */
 /**************************************************************************/
 bool Adafruit_ADS1X15::begin(uint8_t i2c_addr, TwoWire *wire) {
-  m_i2c_dev = new Adafruit_I2CDevice(i2c_addr, wire);
+  if (m_i2c_dev == NULL)
+      {
+      m_i2c_dev = new Adafruit_I2CDevice(i2c_addr, wire);
+      }
+
   return m_i2c_dev->begin();
+  }
+
+void Adafruit_ADS1X15::end() {
+  if (m_i2c_dev != NULL)
+      {
+      delete m_i2c_dev; // Free the allocated memory
+      m_i2c_dev = NULL;
+      }
 }
 
 /**************************************************************************/
