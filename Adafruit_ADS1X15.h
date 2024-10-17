@@ -148,13 +148,14 @@ typedef enum {
 class Adafruit_ADS1X15 {
 protected:
   // Instance-specific properties
-  Adafruit_I2CDevice *m_i2c_dev; ///< I2C bus device
+  Adafruit_I2CDevice *m_i2c_dev = NULL; ///< I2C bus device
   uint8_t m_bitShift;            ///< bit shift amount
   adsGain_t m_gain;              ///< ADC gain
   uint16_t m_dataRate;           ///< Data rate
 
 public:
   bool begin(uint8_t i2c_addr = ADS1X15_ADDRESS, TwoWire *wire = &Wire);
+  void end();
   int16_t readADC_SingleEnded(uint8_t channel);
   int16_t readADC_Differential_0_1();
   int16_t readADC_Differential_0_3();
